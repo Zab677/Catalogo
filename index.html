@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía de Accesorios de Red</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0c10;
+    --surface: #12151c;
+    --surface2: #1a1f2e;
+    --accent: #00e5ff;
+    --accent2: #ff6b35;
+    --accent3: #7c3aed;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --border: #1e2a3a;
+    --green: #10b981;
+    --red: #ef4444;
+    --yellow: #f59e0b;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Syne', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* HEADER */
+  header {
+    padding: 3rem 2rem 2rem;
+    text-align: center;
+    position: relative;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(180deg, #0d1520 0%, var(--bg) 100%);
+  }
+
+  header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%; transform: translateX(-50%);
+    width: 600px; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent), var(--accent3), transparent);
+  }
+
+  .badge {
+    display: inline-block;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 4px 12px;
+    border-radius: 2px;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.1;
+    background: linear-gradient(135deg, #fff 0%, var(--accent) 50%, var(--accent3) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.75rem;
+  }
+
+  .subtitle {
+    color: var(--muted);
+    font-size: 1rem;
+    font-weight: 400;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* FILTERS */
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    padding: 1.5rem 2rem;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    align-items: center;
+    justify-content: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .filter-btn {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 1px;
+    padding: 6px 14px;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+  }
+
+  .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .filter-btn.active { background: var(--accent); color: #000; border-color: var(--accent); font-weight: 700; }
+
+  .search-box {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+    padding: 6px 14px;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    background: var(--surface2);
+    color: var(--text);
+    outline: none;
+    width: 220px;
+    transition: border-color 0.2s;
+  }
+
+  .search-box:focus { border-color: var(--accent); }
+  .search-box::placeholder { color: var(--muted); }
+
+  /* GRID */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 1.5rem;
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  /* CARD */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+  }
+
+  .card:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent);
+    box-shadow: 0 8px 32px rgba(0,229,255,0.08);
+  }
+
+  .card-header {
+    padding: 1.2rem 1.4rem 0.8rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+    width: 52px; height: 52px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--surface2);
+    border-radius: 6px;
+    border: 1px solid var(--border);
+  }
+
+  .card-title-group { flex: 1; }
+
+  .card-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--accent);
+    letter-spacing: 2px;
+    margin-bottom: 2px;
+  }
+
+  .card-name {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.2;
+  }
+
+  .card-type {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+    margin-top: 3px;
+  }
+
+  .env-tags {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    margin-top: 6px;
+  }
+
+  .env-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    padding: 2px 7px;
+    border-radius: 2px;
+    letter-spacing: 1px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .tag-hogar { background: rgba(16,185,129,0.15); color: var(--green); border: 1px solid rgba(16,185,129,0.3); }
+  .tag-pyme  { background: rgba(245,158,11,0.15); color: var(--yellow); border: 1px solid rgba(245,158,11,0.3); }
+  .tag-empresa { background: rgba(124,58,237,0.15); color: #a78bfa; border: 1px solid rgba(124,58,237,0.3); }
+
+  /* BODY */
+  .card-body {
+    padding: 1rem 1.4rem;
+  }
+
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 2px;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    margin-top: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .section-label::before {
+    content: '';
+    display: inline-block;
+    width: 16px; height: 1px;
+    background: var(--accent);
+  }
+
+  .section-label:first-child { margin-top: 0; }
+
+  .specs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px 12px;
+    margin-top: 4px;
+  }
+
+  .spec-item {
+    font-size: 0.8rem;
+    color: var(--muted);
+    padding: 3px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 6px;
+  }
+
+  .spec-key { color: var(--text); font-weight: 600; white-space: nowrap; }
+
+  .pros-cons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 4px;
+  }
+
+  .pros, .cons {
+    padding: 8px;
+    border-radius: 4px;
+  }
+
+  .pros { background: rgba(16,185,129,0.05); border: 1px solid rgba(16,185,129,0.2); }
+  .cons { background: rgba(239,68,68,0.05); border: 1px solid rgba(239,68,68,0.2); }
+
+  .pros-title { color: var(--green); font-size: 0.7rem; font-weight: 700; margin-bottom: 4px; font-family: 'Space Mono', monospace; }
+  .cons-title { color: var(--red); font-size: 0.7rem; font-weight: 700; margin-bottom: 4px; font-family: 'Space Mono', monospace; }
+
+  .pc-list { list-style: none; padding: 0; }
+  .pc-list li { font-size: 0.78rem; color: var(--muted); padding: 1px 0; padding-left: 10px; position: relative; }
+  .pc-list li::before { content: '▸'; position: absolute; left: 0; font-size: 0.65rem; }
+  .pros .pc-list li::before { color: var(--green); }
+  .cons .pc-list li::before { color: var(--red); }
+
+  .cost-bar {
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .cost-label { font-family: 'Space Mono', monospace; font-size: 0.8rem; color: #fff; font-weight: 700; }
+  .cost-range {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--accent2);
+    padding: 3px 10px;
+    background: rgba(255,107,53,0.1);
+    border: 1px solid rgba(255,107,53,0.3);
+    border-radius: 3px;
+  }
+
+  .info-text {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.5;
+    margin-top: 4px;
+  }
+
+  /* STATS BAR */
+  .stats-row {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem 2rem;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .stat { text-align: center; }
+  .stat-num { font-family: 'Space Mono', monospace; font-size: 1.4rem; font-weight: 700; color: var(--accent); }
+  .stat-lbl { font-size: 0.7rem; color: var(--muted); letter-spacing: 1px; }
+
+  .no-results {
+    text-align: center;
+    padding: 4rem;
+    color: var(--muted);
+    font-family: 'Space Mono', monospace;
+    grid-column: 1/-1;
+  }
+
+  @media (max-width: 600px) {
+    .grid { grid-template-columns: 1fr; padding: 1rem; }
+    .specs-grid { grid-template-columns: 1fr; }
+    .pros-cons { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="badge">📡 Infraestructura de Red — Guía Técnica 2025</div>
+  <h1>20 Accesorios de Red</h1>
+  <p class="subtitle">Características técnicas, entornos de uso, ventajas, desventajas y costos orientativos en USD</p>
+</header>
+
+<div class="stats-row">
+  <div class="stat"><div class="stat-num">20</div><div class="stat-lbl">Dispositivos</div></div>
+  <div class="stat"><div class="stat-num">8</div><div class="stat-lbl">Categorías</div></div>
+  <div class="stat"><div class="stat-num">3</div><div class="stat-lbl">Entornos</div></div>
+</div>
+
+<div class="controls">
+  <button class="filter-btn active" onclick="filter('all',this)">Todos</button>
+  <button class="filter-btn" onclick="filter('router',this)">Routers</button>
+  <button class="filter-btn" onclick="filter('switch',this)">Switches</button>
+  <button class="filter-btn" onclick="filter('wireless',this)">Wireless</button>
+  <button class="filter-btn" onclick="filter('cableado',this)">Cableado</button>
+  <button class="filter-btn" onclick="filter('seguridad',this)">Seguridad</button>
+  <button class="filter-btn" onclick="filter('otros',this)">Otros</button>
+  <input class="search-box" id="searchBox" placeholder="Buscar dispositivo..." oninput="search()" />
+</div>
+
+<div class="grid" id="grid"></div>
+
+<script>
+const devices = [
+  {
+    id: 1, icon: "🌐", name: "Router doméstico Wi-Fi 6", type: "Router inalámbrico", cat: "router",
+    env: ["hogar","pyme"],
+    specs: [
+      {k:"Estándar", v:"802.11ax (Wi-Fi 6)"},
+      {k:"Velocidad", v:"Hasta 5.4 Gbps"},
+      {k:"Bandas", v:"Dual-band 2.4/5 GHz"},
+      {k:"Puertos LAN", v:"4x Gigabit Ethernet"},
+      {k:"Topología", v:"Estrella"},
+      {k:"Limitación", v:"Cobertura ~150 m²"}
+    ],
+    uso: "Ideal para hogares y pequeñas oficinas. Soporta múltiples dispositivos simultáneos con OFDMA. Ejemplo: TP-Link Archer AX55, ASUS RT-AX58U.",
+    pros: ["Mayor eficiencia espectral","Latencia reducida con OFDMA","Fácil configuración","Soporte MU-MIMO"],
+    cons: ["Señal limitada a un piso","Sin gestión centralizada","Seguridad básica"],
+    costo: "$60–$200 USD"
+  },
+  {
+    id: 2, icon: "🔀", name: "Switch no administrable 8p", type: "Switch Ethernet", cat: "switch",
+    env: ["hogar","pyme"],
+    specs: [
+      {k:"Velocidad", v:"10/100/1000 Mbps"},
+      {k:"Puertos", v:"8x RJ-45 Gigabit"},
+      {k:"Estándar", v:"IEEE 802.3ab"},
+      {k:"Topología", v:"Estrella"},
+      {k:"VLAN", v:"No"},
+      {k:"Limitación", v:"Sin gestión remota"}
+    ],
+    uso: "Ampliar puntos de conexión en hogares o pequeñas oficinas. Plug & play sin configuración. Ejemplo: TP-Link TL-SG108, Netgear GS308.",
+    pros: ["Plug & play","Muy económico","Silencioso sin ventilador","Bajo consumo"],
+    cons: ["Sin VLAN ni QoS","Sin monitoreo","No escalable"],
+    costo: "$20–$50 USD"
+  },
+  {
+    id: 3, icon: "🔧", name: "Switch administrable L2", type: "Switch gestionado capa 2", cat: "switch",
+    env: ["pyme","empresa"],
+    specs: [
+      {k:"Velocidad", v:"1 Gbps por puerto"},
+      {k:"Puertos", v:"24–48 RJ-45 + 2 SFP"},
+      {k:"Estándar", v:"IEEE 802.1Q, 802.1p"},
+      {k:"VLAN", v:"Sí (hasta 256)"},
+      {k:"PoE", v:"Opcional"},
+      {k:"Topología", v:"Estrella/árbol"}
+    ],
+    uso: "Segmentación de red en PyMEs y empresas medianas. Soporta VLANs, QoS y SNMP. Ejemplo: Cisco SG350-28, TP-Link TL-SG3428.",
+    pros: ["VLAN y QoS","Monitoreo SNMP","PoE disponible","Alta fiabilidad"],
+    cons: ["Requiere conocimiento técnico","Costo mayor","Configuración inicial compleja"],
+    costo: "$150–$600 USD"
+  },
+  {
+    id: 4, icon: "🏢", name: "Switch core L3 empresarial", type: "Switch capa 3", cat: "switch",
+    env: ["empresa"],
+    specs: [
+      {k:"Velocidad", v:"10/25/40 Gbps"},
+      {k:"Puertos", v:"48 x 1G + 4 SFP+"},
+      {k:"Routing", v:"Estático, OSPF, BGP"},
+      {k:"VLAN", v:"4096"},
+      {k:"Estación", v:"Data center / core"},
+      {k:"Limitación", v:"Costo elevado"}
+    ],
+    uso: "Núcleo de redes corporativas y centros de datos. Interconecta switches de acceso y distribución. Ejemplo: Cisco Catalyst 9300, Juniper EX4300.",
+    pros: ["Routing en hardware","Alta disponibilidad","Stacking","Alta densidad de puertos"],
+    cons: ["Muy costoso","Requiere personal especializado","Consumo energético alto"],
+    costo: "$2,000–$15,000 USD"
+  },
+  {
+    id: 5, icon: "📶", name: "Punto de acceso Wi-Fi 6E", type: "Wireless Access Point", cat: "wireless",
+    env: ["pyme","empresa"],
+    specs: [
+      {k:"Estándar", v:"802.11ax (Wi-Fi 6E)"},
+      {k:"Bandas", v:"2.4 / 5 / 6 GHz"},
+      {k:"Velocidad", v:"Hasta 10.75 Gbps"},
+      {k:"Clientes", v:"Hasta 500 simultáneos"},
+      {k:"PoE", v:"802.3at/bt"},
+      {k:"Topología", v:"Estrella inalámbrica"}
+    ],
+    uso: "Entornos de alta densidad: oficinas, auditorios, hoteles. Gestión centralizada con controlador o nube. Ejemplo: Cisco C9136I, Ubiquiti U6 Enterprise.",
+    pros: ["Banda 6 GHz sin interferencia","Alta capacidad de clientes","Baja latencia","Gestión centralizada"],
+    cons: ["Requiere PoE++ o inyector","Costo elevado","Clientes deben soportar 6E"],
+    costo: "$300–$900 USD"
+  },
+  {
+    id: 6, icon: "📡", name: "Router VPN empresarial", type: "Router con VPN integrada", cat: "router",
+    env: ["pyme","empresa"],
+    specs: [
+      {k:"Throughput", v:"Hasta 2 Gbps"},
+      {k:"VPN", v:"IPSec, SSL, OpenVPN"},
+      {k:"WAN", v:"Dual WAN failover"},
+      {k:"Puertos", v:"4–8 x Gigabit"},
+      {k:"Protocolos", v:"BGP, OSPF, RIP"},
+      {k:"Limitación", v:"CPU saturable con muchos túneles"}
+    ],
+    uso: "Conexión segura entre sucursales y teletrabajadores. Control de acceso remoto. Ejemplo: Cisco RV345P, Fortinet FG-60F.",
+    pros: ["VPN integrada","Alta seguridad","Failover automático","QoS avanzado"],
+    cons: ["Configuración compleja","Requiere técnico certificado","Costoso"],
+    costo: "$200–$1,200 USD"
+  },
+  {
+    id: 7, icon: "🔌", name: "Patch panel Cat6A 24 puertos", type: "Panel de parcheo", cat: "cableado",
+    env: ["pyme","empresa"],
+    specs: [
+      {k:"Categoría", v:"Cat6A"},
+      {k:"Velocidad", v:"10 Gbps hasta 100 m"},
+      {k:"Puertos", v:"24 RJ-45 1U rack"},
+      {k:"Estándar", v:"TIA-568-C.2, ISO/IEC 11801"},
+      {k:"Apantallamiento", v:"UTP o STP"},
+      {k:"Topología", v:"Cableado estructurado"}
+    ],
+    uso: "Centro de cableado estructurado en cuartos de telecomunicaciones. Facilita la gestión y reconfiguración. Ejemplo: Panduit CP24WSBLY, Leviton 5G108.",
+    pros: ["Organización centralizada","Facilita mantenimiento","Etiquetado claro","Reutilizable"],
+    cons: ["Requiere espacio en rack","Instalación técnica","Costo adicional de patch cords"],
+    costo: "$40–$180 USD"
+  },
+  {
+    id: 8, icon: "🛡️", name: "Firewall NGFW", type: "Next-Generation Firewall", cat: "seguridad",
+    env: ["pyme","empresa"],
+    specs: [
+      {k:"Throughput", v:"1–40 Gbps"},
+      {k:"Funciones", v:"IPS, DPI, SSL-Inspect"},
+      {k:"VPN", v:"IPSec, SSL"},
+      {k:"App Control", v:"Sí (L7)"},
+      {k:"Logs", v:"Tiempo real"},
+      {k:"Limitación", v:"Licencias anuales costosas"}
+    ],
+    uso: "Protección perimetral avanzada en empresas. Inspección de tráfico cifrado, filtrado de URLs y control de aplicaciones. Ejemplo: Palo Alto PA-220, Fortinet FG-100F.",
+    pros: ["Protección L7","Inspección SSL","Prevención de intrusos","Visibilidad de aplicaciones"],
+    cons: ["Costo total elevado (licencias)","Requiere expertise","Puede ser cuello de botella"],
+    costo: "$500–$5,000 USD + licencias"
+  },
+  {
+    id: 9, icon: "💻", name: "Tarjeta de red NIC 10GbE", type: "Network Interface Card", cat: "otros",
+    env: ["pyme","empresa"],
+    specs: [
+      {k:"Velocidad", v:"10 Gbps"},
+      {k:"Interfaz", v:"PCIe x4/x8"},
+      {k:"Conector", v:"SFP+ o RJ-45"},
+      {k:"Estándar", v:"802.3ae (10GBASE)"},
+      {k:"OS", v:"Win/Linux/VMware"},
+      {k:"Limitación", v:"Calor en RJ-45 10G"}
+    ],
+    uso: "Servidores, NAS y estaciones de trabajo que requieren alta transferencia. Virtualización VMware/Hyper-V. Ejemplo: Intel X550-T2, Mellanox ConnectX-4.",
+    pros: ["Alta transferencia","SR-IOV para virtualización","Bajo CPU offload","NIC teaming"],
+    cons: ["Requiere switch 10G","Costo elevado","Calor adicional en el servidor"],
+    costo: "$50–$400 USD"
+  },
+  {
+    id: 10, icon: "🔗", name: "Módulo SFP+ 10G fibra", type: "Transceptor óptico", cat: "cableado",
+    env: ["pyme","empresa"],
+    specs: [
+      {k:"Velocidad", v:"10 Gbps"},
+      {k:"Distancia", v:"300 m (MM) / 10 km (SM)"},
+      {k:"Conector", v:"LC dúplex"},
+      {k:"Estándar", v:"IEEE 802.3ae"},
+      {k:"Longitud onda", v:"850 nm / 1310 nm"},
+      {k:"Limitación", v:"Compatible por fabricante"}
+    ],
+    uso: "Interconexión de switches y routers mediante fibra óptica. Ideal para largas distancias o inmunidad a interferencias. Ejemplo: Cisco SFP-10G-SR, Ubiquiti UF-MM-10G.",
+    pros: ["Alta velocidad","Larga distancia","Inmune a EMI","Bajo peso"],
+    cons: ["Fibra frágil","Requiere limpieza de conectores","Compatibilidad variable"],
+    costo: "$20–$200 USD"
+  },
+  {
+    id: 11, icon: "🕸️", name: "Sistema Mesh Wi-Fi 6", type: "Red Mesh inalámbrica", cat: "wireless",
+    env: ["hogar","pyme"],
+    specs: [
+      {k:"Estándar", v:"Wi-Fi 6 (802.11ax)"},
+      {k:"Velocidad", v:"Hasta 6 Gbps total"},
+      {k:"Nodos", v:"2–6 unidades"},
+      {k:"Backhaul", v:"Dedicado 5 GHz"},
+      {k:"App", v:"Gestión móvil"},
+      {k:"Topología", v:"Malla"}
+    ],
+    uso: "Hogares grandes con múltiples pisos y oficinas open-space. Elimina zonas muertas sin cableado adicional. Ejemplo: Eero Pro 6E, TP-Link Deco XE75.",
+    pros: ["Cobertura uniforme","Roaming transparente","Fácil instalación","Escalable"],
+    cons: ["Backhaul comparte ancho de banda","Costoso en conjunto","Depende de app del fabricante"],
+    costo: "$150–$600 USD (kit)"
+  },
+  {
+    id: 12, icon: "⚡", name: "Inyector PoE+ 802.3at", type: "Power over Ethernet Injector", cat: "otros",
+    env: ["hogar","pyme","empresa"],
+    specs: [
+      {k:"Estándar", v:"IEEE 802.3at"},
+      {k:"Potencia", v:"Hasta 30W por puerto"},
+      {k:"Velocidad", v:"Gigabit"},
+      {k:"Entrada", v:"100–240V AC"},
+      {k:"Topología", v:"Punto a punto"},
+      {k:"Limitación", v:"Un dispositivo por unidad"}
+    ],
+    uso: "Alimentar cámaras IP, teléfonos VoIP y APs sin toma de corriente cercana. Compatible con cualquier switch no-PoE. Ejemplo: TP-Link TL-POE150S.",
+    pros: ["Económico","No requiere switch PoE","Fácil instalación","Universal"],
+    cons: ["Un solo puerto","Cable adicional de alimentación","Solo 30W máximo"],
+    costo: "$15–$45 USD"
+  },
+  {
+    id: 13, icon: "📦", name: "Switch PoE+ 24p empresa", type: "Switch con PoE empresarial", cat: "switch",
+    env: ["pyme","empresa"],
+    specs: [
+      {k:"Puertos", v:"24 x 1G PoE+ + 4 SFP"},
+      {k:"Presupuesto PoE", v:"370W total"},
+      {k:"Estándar PoE", v:"802.3at/af"},
+      {k:"Gestión", v:"L2 administrable"},
+      {k:"VLAN", v:"Sí (802.1Q)"},
+      {k:"Limitación", v:"Presupuesto energético fijo"}
+    ],
+    uso: "Alimentar y conectar APs, cámaras IP, teléfonos VoIP y sensores IoT en redes empresariales. Ejemplo: Cisco SG350-28P, Netgear GS728TPv2.",
+    pros: ["Elimina adaptadores de corriente","Gestión centralizada","Alta densidad","VLAN y QoS"],
+    cons: ["Costoso","Presupuesto PoE limitado","Genera calor"],
+    costo: "$400–$1,200 USD"
+  },
+  {
+    id: 14, icon: "🛰️", name: "Controlador de red Wi-Fi", type: "Wireless LAN Controller", cat: "wireless",
+    env: ["empresa"],
+    specs: [
+      {k:"APs gestionados", v:"50–500+"},
+      {k:"Protocolos", v:"CAPWAP, LWAPP"},
+      {k:"Roaming", v:"802.11r (rápido)"},
+      {k:"Funciones", v:"SSID, VLAN, QoS, RF"},
+      {k:"Forma", v:"Appliance o VM"},
+      {k:"Limitación", v:"Punto único de fallo"}
+    ],
+    uso: "Gestión centralizada de decenas/cientos de APs en campus o edificios. Políticas unificadas y roaming sin interrupciones. Ejemplo: Cisco 3504 WLC, Aruba 7005.",
+    pros: ["Gestión centralizada","Roaming seamless","RF management automático","Políticas unificadas"],
+    cons: ["Costoso","SPOF si no hay HA","Requiere experiencia","Licencias por AP"],
+    costo: "$1,000–$8,000 USD"
+  },
+  {
+    id: 15, icon: "🔒", name: "Adaptador Wi-Fi USB Wi-Fi 6", type: "Adaptador inalámbrico USB", cat: "wireless",
+    env: ["hogar","pyme"],
+    specs: [
+      {k:"Estándar", v:"802.11ax (Wi-Fi 6)"},
+      {k:"Velocidad", v:"Hasta 1800 Mbps"},
+      {k:"Bandas", v:"Dual-band 2.4/5 GHz"},
+      {k:"Interfaz", v:"USB 3.0"},
+      {k:"Antenas", v:"Externas plegables"},
+      {k:"Limitación", v:"Limitado por USB 3.0 (~5 Gbps)"}
+    ],
+    uso: "Agregar conectividad Wi-Fi a PCs de escritorio o laptops sin módulo inalámbrico. Útil para actualizar equipos antiguos. Ejemplo: TP-Link Archer TX20U.",
+    pros: ["Plug & play","Económico","Portátil","No requiere abrir el equipo"],
+    cons: ["Velocidad menor que NIC interna","Sensible a interferencias USB","Puede sobrecalentar"],
+    costo: "$20–$60 USD"
+  },
+  {
+    id: 16, icon: "🏗️", name: "Rack de telecomunicaciones 19\"", type: "Gabinete de red", cat: "cableado",
+    env: ["pyme","empresa"],
+    specs: [
+      {k:"Ancho estándar", v:"19 pulgadas"},
+      {k:"Altura", v:"6U–42U"},
+      {k:"Material", v:"Acero inoxidable"},
+      {k:"Ventilación", v:"Pasiva o activa"},
+      {k:"Acceso", v:"Frontal y trasero"},
+      {k:"Topología", v:"Centralización física"}
+    ],
+    uso: "Organización física de switches, routers, patch panels y servidores. Estándar universal para equipos de datos. Ejemplo: StarTech 4POSTRACK, APC AR3100.",
+    pros: ["Organización profesional","Estándar universal","Protección física","Escalable"],
+    cons: ["Requiere espacio físico","Costo de instalación","Necesita climatización"],
+    costo: "$100–$1,500 USD"
+  },
+  {
+    id: 17, icon: "🔄", name: "Repetidor / Extensor Wi-Fi", type: "Range Extender", cat: "wireless",
+    env: ["hogar"],
+    specs: [
+      {k:"Estándar", v:"Wi-Fi 5/6"},
+      {k:"Velocidad", v:"750–1800 Mbps"},
+      {k:"Bandas", v:"Dual-band"},
+      {k:"Interfaz", v:"Enchufable (pared)"},
+      {k:"Topología", v:"Árbol inalámbrico"},
+      {k:"Limitación", v:"Reduce velocidad ~50%"}
+    ],
+    uso: "Ampliar la señal Wi-Fi en hogares con zonas sin cobertura. Solución económica sin cableado. Ejemplo: TP-Link RE605X, Netgear EX7500.",
+    pros: ["Muy económico","Fácil instalación","Sin cableado adicional","Compatibilidad universal"],
+    cons: ["Reduce ancho de banda","Mismo SSID puede causar problemas","Latencia adicional","No apto para IoT denso"],
+    costo: "$20–$80 USD"
+  },
+  {
+    id: 18, icon: "🔌", name: "PLC / Powerline Adapter", type: "Adaptador de red por línea eléctrica", cat: "otros",
+    env: ["hogar","pyme"],
+    specs: [
+      {k:"Velocidad", v:"500–2400 Mbps (teórico)"},
+      {k:"Estándar", v:"HomePlug AV2"},
+      {k:"Interfaz", v:"Ethernet + Wi-Fi (algunos)"},
+      {k:"Distancia", v:"Hasta 300 m por circuito"},
+      {k:"Topología", v:"Bus (cableado eléctrico)"},
+      {k:"Limitación", v:"Velocidad real mucho menor"}
+    ],
+    uso: "Extender red en edificios sin perforar paredes. Funciona por el cableado eléctrico existente. Ejemplo: TP-Link TL-PA9020P, Devolo dLAN 1200+.",
+    pros: ["Sin obras","Alcanza toda la casa","Fácil instalación","Estable vs Wi-Fi"],
+    cons: ["Velocidad real baja","Sensible a interferencias eléctricas","No cruza transformadores","Requiere mismo circuito"],
+    costo: "$40–$150 USD (par)"
+  },
+  {
+    id: 19, icon: "📍", name: "Servidor NAS 2 bahías", type: "Network Attached Storage", cat: "otros",
+    env: ["hogar","pyme"],
+    specs: [
+      {k:"Bahías", v:"2–4 (HDD/SSD)"},
+      {k:"Velocidad red", v:"1–2.5 GbE"},
+      {k:"RAID", v:"0, 1, JBOD"},
+      {k:"Protocolos", v:"SMB, NFS, iSCSI, FTP"},
+      {k:"OS", v:"DSM (Synology) / QTS (QNAP)"},
+      {k:"Limitación", v:"Rendimiento limitado vs SAN"}
+    ],
+    uso: "Almacenamiento compartido en red para hogares y PyMEs. Backup centralizado, streaming multimedia y almacenamiento de archivos. Ejemplo: Synology DS223, QNAP TS-251D.",
+    pros: ["Almacenamiento compartido","RAID redundancia","Bajo consumo","Apps incluidas"],
+    cons: ["Velocidad menor que SAN","Requiere disco adicional","CPU limitada"],
+    costo: "$200–$600 USD (sin discos)"
+  },
+  {
+    id: 20, icon: "⚙️", name: "UPS (Sistema de Alimentación Ininterrumpida)", type: "Protección energética de red", cat: "otros",
+    env: ["hogar","pyme","empresa"],
+    specs: [
+      {k:"Capacidad", v:"650–3000 VA"},
+      {k:"Autonomía", v:"5–60 minutos"},
+      {k:"Tecnología", v:"Line-interactive / On-line"},
+      {k:"Protección", v:"Sobretensión, picos"},
+      {k:"Interfaz", v:"USB / SNMP (gestión)"},
+      {k:"Topología", v:"Cualquiera (soporte)"}
+    ],
+    uso: "Proteger equipos de red contra cortes y fluctuaciones eléctricas. Indispensable para servidores, switches core y equipos críticos. Ejemplo: APC Back-UPS 1500VA, Eaton 5P1550.",
+    pros: ["Protege inversión en equipos","Tiempo para apagado seguro","Filtrado de red eléctrica","SNMP en modelos avanzados"],
+    cons: ["Baterías degradan en 3–5 años","Peso elevado","Costo de reposición de baterías"],
+    costo: "$80–$800 USD"
+  }
+];
+
+let activeFilter = 'all';
+let searchTerm = '';
+
+function renderCards() {
+  const grid = document.getElementById('grid');
+  const filtered = devices.filter(d => {
+    const matchCat = activeFilter === 'all' || d.cat === activeFilter;
+    const matchSearch = !searchTerm ||
+      d.name.toLowerCase().includes(searchTerm) ||
+      d.type.toLowerCase().includes(searchTerm) ||
+      d.uso.toLowerCase().includes(searchTerm);
+    return matchCat && matchSearch;
+  });
+
+  if (filtered.length === 0) {
+    grid.innerHTML = '<div class="no-results">⚠ No se encontraron dispositivos con ese filtro.</div>';
+    return;
+  }
+
+  grid.innerHTML = filtered.map(d => `
+    <div class="card">
+      <div class="card-header">
+        <div class="icon">${d.icon}</div>
+        <div class="card-title-group">
+          <div class="card-num">DISPOSITIVO #${String(d.id).padStart(2,'0')}</div>
+          <div class="card-name">${d.name}</div>
+          <div class="card-type">${d.type}</div>
+          <div class="env-tags">
+            ${d.env.includes('hogar') ? '<span class="env-tag tag-hogar">Hogar</span>' : ''}
+            ${d.env.includes('pyme')  ? '<span class="env-tag tag-pyme">PyME</span>'  : ''}
+            ${d.env.includes('empresa') ? '<span class="env-tag tag-empresa">Empresa</span>' : ''}
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="section-label">Especificaciones técnicas</div>
+        <div class="specs-grid">
+          ${d.specs.map(s => `<div class="spec-item"><span class="spec-key">${s.k}:</span><span>${s.v}</span></div>`).join('')}
+        </div>
+
+        <div class="section-label">Uso recomendado</div>
+        <div class="info-text">${d.uso}</div>
+
+        <div class="section-label">Ventajas y desventajas</div>
+        <div class="pros-cons">
+          <div class="pros">
+            <div class="pros-title">✔ VENTAJAS</div>
+            <ul class="pc-list">${d.pros.map(p => `<li>${p}</li>`).join('')}</ul>
+          </div>
+          <div class="cons">
+            <div class="cons-title">✘ DESVENTAJAS</div>
+            <ul class="pc-list">${d.cons.map(c => `<li>${c}</li>`).join('')}</ul>
+          </div>
+        </div>
+
+        <div class="section-label">Costo orientativo</div>
+        <div class="cost-bar">
+          <span class="cost-label">💵</span>
+          <span class="cost-range">${d.costo}</span>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function filter(cat, btn) {
+  activeFilter = cat;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderCards();
+}
+
+function search() {
+  searchTerm = document.getElementById('searchBox').value.toLowerCase();
+  renderCards();
+}
+
+renderCards();
+</script>
+</body>
+</html>
